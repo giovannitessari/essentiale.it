@@ -25,11 +25,11 @@
   animation: fade 44s linear infinite, zoom 44s linear infinite;
 }
 
-/* overlay */
+/* overlay con gradient */
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
   color: white;
   display: flex;
   flex-direction: column;
@@ -75,7 +75,7 @@
   opacity: 0.7;
 }
 
-/* Animazioni fade e zoom */
+/* animazioni fade e fadeInUp */
 @keyframes fade {
   0%   { opacity: 1; }
   9%   { opacity: 1; }
@@ -90,24 +90,25 @@
   }
 }
 
+/* animazione zoom variabile */
 @keyframes zoom {
   0%   { transform: scale(1); }
-  50%  { transform: scale(1.05); }
+  50%  { transform: scale(1.03); }
   100% { transform: scale(1); }
 }
 
-/* Delay immagini uniformi */
-.slides .slide:nth-child(1)  { animation-delay: 0s; }
-.slides .slide:nth-child(2)  { animation-delay: 4s; }
-.slides .slide:nth-child(3)  { animation-delay: 8s; }
-.slides .slide:nth-child(4)  { animation-delay: 12s; }
-.slides .slide:nth-child(5)  { animation-delay: 16s; }
-.slides .slide:nth-child(6)  { animation-delay: 20s; }
-.slides .slide:nth-child(7)  { animation-delay: 24s; }
-.slides .slide:nth-child(8)  { animation-delay: 28s; }
-.slides .slide:nth-child(9)  { animation-delay: 32s; }
-.slides .slide:nth-child(10) { animation-delay: 36s; }
-.slides .slide:nth-child(11) { animation-delay: 40s; }
+/* delay immagini e zoom leggermente variabile */
+.slides .slide:nth-child(1)  { animation-delay: 0s; animation-duration: 44s, 44s; }
+.slides .slide:nth-child(2)  { animation-delay: 4s; animation-duration: 44s, 46s; }
+.slides .slide:nth-child(3)  { animation-delay: 8s; animation-duration: 44s, 45s; }
+.slides .slide:nth-child(4)  { animation-delay: 12s; animation-duration: 44s, 47s; }
+.slides .slide:nth-child(5)  { animation-delay: 16s; animation-duration: 44s, 44s; }
+.slides .slide:nth-child(6)  { animation-delay: 20s; animation-duration: 44s, 44s; }
+.slides .slide:nth-child(7)  { animation-delay: 24s; animation-duration: 44s, 46s; }
+.slides .slide:nth-child(8)  { animation-delay: 28s; animation-duration: 44s, 45s; }
+.slides .slide:nth-child(9)  { animation-delay: 32s; animation-duration: 44s, 44s; }
+.slides .slide:nth-child(10) { animation-delay: 36s; animation-duration: 44s, 47s; }
+.slides .slide:nth-child(11) { animation-delay: 40s; animation-duration: 44s, 44s; }
 
 /* Responsive per dispositivi mobili */
 @media (max-width: 768px) {
