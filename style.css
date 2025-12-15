@@ -22,14 +22,18 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  animation: fade 44s ease-in-out infinite, zoom 44s linear infinite;
+  animation: fade 55s ease-in-out infinite, zoom 55s linear infinite;
 }
 
 /* overlay con gradient */
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.25),
+    rgba(0,0,0,0.65)
+  );
   color: white;
   display: flex;
   flex-direction: column;
@@ -75,12 +79,12 @@
   opacity: 0.7;
 }
 
-/* animazioni */
+/* FADE LENTO E CINEMATICO */
 @keyframes fade {
   0%    { opacity: 0; }
-  1.5%  { opacity: 1; }  /* fade-in morbido */
-  7.5%  { opacity: 1; }  /* resta visibile */
-  9%    { opacity: 0; }  /* fade-out morbido */
+  2%    { opacity: 1; }   /* fade-in lento */
+  8%    { opacity: 1; }   /* pienamente visibile */
+  10%   { opacity: 0; }   /* fade-out lento */
   100%  { opacity: 0; }
 }
 
@@ -91,26 +95,27 @@
   }
 }
 
+/* zoom molto delicato */
 @keyframes zoom {
   0%   { transform: scale(1); }
-  50%  { transform: scale(1.03); }
+  50%  { transform: scale(1.025); }
   100% { transform: scale(1); }
 }
 
-/* delay immagini + zoom leggermente variabile */
-.slides .slide:nth-child(1)  { animation-delay: 0s;  animation-duration: 44s, 44s; }
-.slides .slide:nth-child(2)  { animation-delay: 4s;  animation-duration: 44s, 46s; }
-.slides .slide:nth-child(3)  { animation-delay: 8s;  animation-duration: 44s, 45s; }
-.slides .slide:nth-child(4)  { animation-delay: 12s; animation-duration: 44s, 47s; }
-.slides .slide:nth-child(5)  { animation-delay: 16s; animation-duration: 44s, 44s; }
-.slides .slide:nth-child(6)  { animation-delay: 20s; animation-duration: 44s, 44s; }
-.slides .slide:nth-child(7)  { animation-delay: 24s; animation-duration: 44s, 46s; }
-.slides .slide:nth-child(8)  { animation-delay: 28s; animation-duration: 44s, 45s; }
-.slides .slide:nth-child(9)  { animation-delay: 32s; animation-duration: 44s, 44s; }
-.slides .slide:nth-child(10) { animation-delay: 36s; animation-duration: 44s, 47s; }
-.slides .slide:nth-child(11) { animation-delay: 40s; animation-duration: 44s, 44s; }
+/* DELAY: 5s PER IMMAGINE */
+.slides .slide:nth-child(1)  { animation-delay: 0s; }
+.slides .slide:nth-child(2)  { animation-delay: 5s; }
+.slides .slide:nth-child(3)  { animation-delay: 10s; }
+.slides .slide:nth-child(4)  { animation-delay: 15s; }
+.slides .slide:nth-child(5)  { animation-delay: 20s; }
+.slides .slide:nth-child(6)  { animation-delay: 25s; }
+.slides .slide:nth-child(7)  { animation-delay: 30s; }
+.slides .slide:nth-child(8)  { animation-delay: 35s; }
+.slides .slide:nth-child(9)  { animation-delay: 40s; }
+.slides .slide:nth-child(10) { animation-delay: 45s; }
+.slides .slide:nth-child(11) { animation-delay: 50s; }
 
-/* Responsive per dispositivi mobili */
+/* Responsive */
 @media (max-width: 768px) {
   .overlay h1 {
     font-size: 3rem;
@@ -119,12 +124,6 @@
 
   .overlay p {
     font-size: 1rem;
-    letter-spacing: 0.5px;
-  }
-
-  .icons a {
-    font-size: 1.2rem;
-    margin: 0 10px;
   }
 }
 
@@ -136,10 +135,5 @@
 
   .overlay p {
     font-size: 0.9rem;
-  }
-
-  .icons a {
-    font-size: 1rem;
-    margin: 0 8px;
   }
 }
