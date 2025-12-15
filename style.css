@@ -94,9 +94,9 @@
 */
 @keyframes fade {
   0%     { opacity: 1; }
-  2%     { opacity: 1; }  /* stabile all'inizio (niente flash) */
-  13%    { opacity: 1; }  /* resta visibile */
-  16%  { opacity: 0; }  /* sfuma via (overlap con la successiva) */
+  2%     { opacity: 1; }
+  13%    { opacity: 1; }
+  16%    { opacity: 0; }
   100%   { opacity: 0; }
 }
 
