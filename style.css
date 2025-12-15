@@ -10,7 +10,7 @@
   height: 100vh;
   overflow: hidden;
 
-  /* fallback grigio, come vuoi tu */
+  /* fallback grigio (lo manteniamo) */
   background: #777;
 }
 
@@ -24,10 +24,17 @@
   inset: 0;
   background-size: cover;
   background-position: center;
+
   opacity: 0;
 
-  /* 11 immagini * (1s fade + 4s visible) = 55s */
-  animation: fade 55s linear infinite, zoom 55s linear infinite;
+  /* 11 immagini * 5s = 55s */
+  animation: fade 55s ease-in-out infinite, zoom 55s linear infinite;
+  will-change: opacity, transform;
+}
+
+/* IMPORTANTISSIMO: evita il "flash" all'avvio */
+.slides .slide:nth-child(1) {
+  opacity: 1;
 }
 
 /* overlay con gradient */
@@ -81,19 +88,16 @@
 }
 
 /*
-  KEYFRAMES CALCOLATI PER 11 IMMAGINI (55s totali):
-  1s fade-in  = 1.818%
-  4s visibile = 9.090%
-  1s fade-out = 10.909%
-
-  Nota importante: partiamo già visibili a 0% per evitare “buco” iniziale
-  con i delay positivi.
+  CROSSFADE SENZA BUCHI con step 5s:
+  - Ogni slide resta "attiva" un po' più di 5s (overlap ~0.8s)
+  - Così NON compare mai il grigio tra una e l’altra.
 */
 @keyframes fade {
-  0%       { opacity: 1; }
-  9.090%   { opacity: 1; }
-  10.909%  { opacity: 0; }
-  100%     { opacity: 0; }
+  0%     { opacity: 1; }
+  2%     { opacity: 1; }  /* stabile all'inizio (niente flash) */
+  11%    { opacity: 1; }  /* resta visibile */
+  12.5%  { opacity: 0; }  /* sfuma via (overlap con la successiva) */
+  100%   { opacity: 0; }
 }
 
 @keyframes fadeInUp {
@@ -107,7 +111,7 @@
   100% { transform: scale(1); }
 }
 
-/* Delay POSITIVI: niente “salto” 10→11 e loop più stabile cross-browser */
+/* DELAY POSITIVI: ordine sempre corretto 1→2→...→11 */
 .slides .slide:nth-child(1)  { animation-delay: 0s, 0s; }
 .slides .slide:nth-child(2)  { animation-delay: 5s, 5s; }
 .slides .slide:nth-child(3)  { animation-delay: 10s, 10s; }
