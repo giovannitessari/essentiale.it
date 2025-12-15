@@ -10,7 +10,7 @@
   height: 100vh;
   overflow: hidden;
 
-  /* fallback: se per QUALSIASI motivo non si vede una slide, rimane grigio */
+  /* fallback grigio, come vuoi tu */
   background: #777;
 }
 
@@ -26,19 +26,15 @@
   background-position: center;
   opacity: 0;
 
-  /* durata totale: 11 immagini * 5s = 55s */
-  animation: fade 55s ease-in-out infinite, zoom 55s linear infinite;
+  /* 11 immagini * (1s fade + 4s visible) = 55s */
+  animation: fade 55s linear infinite, zoom 55s linear infinite;
 }
 
 /* overlay con gradient */
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.25),
-    rgba(0,0,0,0.65)
-  );
+  background: linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.65));
   color: white;
   display: flex;
   flex-direction: column;
@@ -85,40 +81,36 @@
 }
 
 /*
-  CROSS-FADE CONTINUO (senza buchi):
-  - la slide è subito visibile (0%)
-  - resta visibile un po’
-  - sfuma via lentamente
-  - nel frattempo la successiva (shiftata di 5s) entra
+  KEYFRAMES CALCOLATI PER 11 IMMAGINI:
+  a = 100 / ((fade+visible) * num) = 100 / (5*11) = 1.81818
+  fade-in  = 1s  -> 1.818%
+  visibile = 4s  -> 9.090%
+  fade-out = 1s  -> 10.909%
+
+  Con delay tra immagini di 5s (9.090%), c’è sempre overlap (niente buchi).
 */
 @keyframes fade {
-  0%   { opacity: 1; }
-  10%  { opacity: 1; }
-  14%  { opacity: 0; }
-  100% { opacity: 0; }
+  0%       { opacity: 0; }
+  1.818%   { opacity: 1; }  /* fine fade-in */
+  9.090%   { opacity: 1; }  /* fine visibile (4s) */
+  10.909%  { opacity: 0; }  /* fine fade-out (1s) */
+  100%     { opacity: 0; }
 }
 
 @keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* zoom molto delicato */
+/* zoom delicato */
 @keyframes zoom {
   0%   { transform: scale(1); }
   50%  { transform: scale(1.025); }
   100% { transform: scale(1); }
 }
 
-/*
-  IMPORTANTISSIMO:
-  usiamo DELAY NEGATIVI per evitare che l’ultima immagine venga “tagliata” a fine ciclo
-  (quello è ciò che crea gli scatti/accavallamenti dopo la 11ª).
-*/
-.slides .slide:nth-child(1)  { animation-delay: 0s, 0s; }
-.slides .slide:nth-child(2)  { animation-delay: -5s, -5s; }
+/* IMPORTANTISSIMO: delay NEGATIVI (così il loop non “scatta” e non si rompe al giro) */
+.slides .slide:nth-child(1)  { animation-delay:   0s,   0s; }
+.slides .slide:nth-child(2)  { animation-delay:  -5s,  -5s; }
 .slides .slide:nth-child(3)  { animation-delay: -10s, -10s; }
 .slides .slide:nth-child(4)  { animation-delay: -15s, -15s; }
 .slides .slide:nth-child(5)  { animation-delay: -20s, -20s; }
@@ -131,23 +123,12 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .overlay h1 {
-    font-size: 3rem;
-    letter-spacing: 3px;
-  }
-
-  .overlay p {
-    font-size: 1rem;
-  }
+  .overlay h1 { font-size: 3rem; letter-spacing: 3px; }
+  .overlay p { font-size: 1rem; }
 }
 
 @media (max-width: 480px) {
-  .overlay h1 {
-    font-size: 2.2rem;
-    letter-spacing: 2px;
-  }
-
-  .overlay p {
-    font-size: 0.9rem;
-  }
+  .overlay h1 { font-size: 2.2rem; letter-spacing: 2px; }
+  .overlay p { font-size: 0.9rem; }
+  .icons a { font-size: 1.2rem; margin: 0 10px; }
 }
