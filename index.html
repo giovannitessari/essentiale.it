@@ -9,24 +9,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- Preload (priorità alla prima) -->
   <link rel="preload" as="image" href="images/img1.jpg" fetchpriority="high">
-  <link rel="preload" as="image" href="images/img2.jpg">
-  <link rel="preload" as="image" href="images/img3.jpg">
-  <link rel="preload" as="image" href="images/img4.jpg">
-  <link rel="preload" as="image" href="images/img5.jpg">
-  <link rel="preload" as="image" href="images/img6.jpg">
-  <link rel="preload" as="image" href="images/img7.jpg">
-  <link rel="preload" as="image" href="images/img8.jpg">
-  <link rel="preload" as="image" href="images/img9.jpg">
-  <link rel="preload" as="image" href="images/img10.jpg">
-  <link rel="preload" as="image" href="images/img11.jpg">
 </head>
 
 <body>
 
 <div class="slider" id="slider">
-
   <div class="slides" id="slides">
     <div class="slide" style="background-image:url('images/img1.jpg')"></div>
     <div class="slide" style="background-image:url('images/img2.jpg')"></div>
@@ -50,7 +38,6 @@
       <a href="https://instagram.com/_giovannitessari_"><i class="fa-brands fa-instagram"></i></a>
     </div>
   </div>
-
 </div>
 
 <script>
@@ -58,28 +45,22 @@
   (function() {
     var user = "giovanni.tessari";
     var domain = "essentiale.it";
-    var emailLink = document.getElementById("email-link");
-    emailLink.href = "mailto:" + user + "@" + domain;
+    document.getElementById("email-link").href = "mailto:" + user + "@" + domain;
   })();
 
-  // Slider stabile (mai sfasato, mai “11 più lunga”)
+  // Slider stabile
   (function() {
     const slider = document.getElementById('slider');
     const slides = Array.from(document.querySelectorAll('.slide'));
-    const intervalMs = 5000; // 5s per immagine
-
+    const intervalMs = 5000;   // tempo per immagine
     let i = 0;
 
-    // elimina grigio appena img1 è pronta: usiamo come fallback visivo
+    // fallback visivo: appena img1 è pronta, mettiamo la classe di background
     const img = new Image();
     img.src = "images/img1.jpg";
-    img.onload = () => {
-      slider.style.backgroundImage = "url('images/img1.jpg')";
-      slider.style.backgroundSize = "cover";
-      slider.style.backgroundPosition = "center";
-    };
+    img.onload = () => slider.classList.add('has-bg');
 
-    // stato iniziale
+    // inizializzazione: SOLO slide 1 attiva
     slides.forEach(s => s.classList.remove('is-active'));
     slides[0].classList.add('is-active');
 

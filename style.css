@@ -10,8 +10,15 @@
   height: 100vh;
   overflow: hidden;
 
-  /* fallback grigio (ma non lo vedrai appena carica img1) */
+  /* fallback neutro */
   background: #777;
+}
+
+/* fallback immagine iniziale sul contenitore (NON interferisce con le slide) */
+.slider.has-bg {
+  background-image: url("images/img1.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 .slides {
@@ -19,7 +26,6 @@
   inset: 0;
 }
 
-/* Slide: niente animazioni CSS infinite, solo transizioni */
 .slide {
   position: absolute;
   inset: 0;
@@ -28,19 +34,19 @@
 
   opacity: 0;
   transform: scale(1);
+  pointer-events: none;
 
-  /* crossfade + zoom */
-  transition: opacity 1.4s ease-in-out, transform 6.5s ease-in-out;
+  transition: opacity 1.4s ease-in-out, transform 6s ease-in-out;
   will-change: opacity, transform;
 }
 
-/* Slide attiva */
+/* SOLO la slide attiva è visibile */
 .slide.is-active {
   opacity: 1;
-  transform: scale(1.05); /* zoom piacevole */
+  transform: scale(1.05);
 }
 
-/* overlay con gradient */
+/* overlay */
 .overlay {
   position: absolute;
   inset: 0;
@@ -99,7 +105,6 @@
   .overlay h1 { font-size: 3rem; letter-spacing: 3px; }
   .overlay p { font-size: 1rem; }
 }
-
 @media (max-width: 480px) {
   .overlay h1 { font-size: 2.2rem; letter-spacing: 2px; }
   .overlay p { font-size: 0.9rem; }
