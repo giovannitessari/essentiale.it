@@ -8,23 +8,25 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="images/img1.jpg">
-<link rel="preload" as="image" href="images/img2.jpg">
-<link rel="preload" as="image" href="images/img3.jpg">
-<link rel="preload" as="image" href="images/img4.jpg">
-<link rel="preload" as="image" href="images/img5.jpg">
-<link rel="preload" as="image" href="images/img6.jpg">
-<link rel="preload" as="image" href="images/img7.jpg">
-<link rel="preload" as="image" href="images/img8.jpg">
-<link rel="preload" as="image" href="images/img9.jpg">
-<link rel="preload" as="image" href="images/img10.jpg">
-<link rel="preload" as="image" href="images/img11.jpg">
 
+  <!-- Preload immagini: priorità alta alla prima per eliminare il flash iniziale -->
+  <link rel="preload" as="image" href="images/img1.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="images/img2.jpg">
+  <link rel="preload" as="image" href="images/img3.jpg">
+  <link rel="preload" as="image" href="images/img4.jpg">
+  <link rel="preload" as="image" href="images/img5.jpg">
+  <link rel="preload" as="image" href="images/img6.jpg">
+  <link rel="preload" as="image" href="images/img7.jpg">
+  <link rel="preload" as="image" href="images/img8.jpg">
+  <link rel="preload" as="image" href="images/img9.jpg">
+  <link rel="preload" as="image" href="images/img10.jpg">
+  <link rel="preload" as="image" href="images/img11.jpg">
 </head>
 
 <body>
 
-<div class="slider">
+<!-- Fallback immediato: se le slide non sono ancora pronte, vedi subito img1 -->
+<div class="slider" style="background-image:url('images/img1.jpg'); background-size:cover; background-position:center;">
 
   <div class="slides">
     <div class="slide" style="background-image:url('images/img1.jpg')"></div>
@@ -54,13 +56,13 @@
 </div>
 
 <script>
-// Protezione email: bot non la leggono facilmente
-(function() {
-  var user = "giovanni.tessari";
-  var domain = "essentiale.it";
-  var emailLink = document.getElementById("email-link");
-  emailLink.href = "mailto:" + user + "@" + domain;
-})();
+  // Protezione email: bot non la leggono facilmente
+  (function() {
+    var user = "giovanni.tessari";
+    var domain = "essentiale.it";
+    var emailLink = document.getElementById("email-link");
+    emailLink.href = "mailto:" + user + "@" + domain;
+  })();
 </script>
 
 </body>
