@@ -22,7 +22,7 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  animation: fade 44s infinite;
+  animation: fade 44s infinite, zoom 44s infinite;
 }
 
 /* overlay */
@@ -89,6 +89,12 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes zoom {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 /* delay immagini */
