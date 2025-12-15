@@ -1,3 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.slider {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slides {
+  position: absolute;
+  inset: 0;
+}
+
 .slide {
   position: absolute;
   inset: 0;
@@ -7,7 +25,57 @@
   animation: fade 44s linear infinite, zoom 44s linear infinite;
 }
 
-/* keyframes fade per 11 immagini */
+/* overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 2;
+}
+
+.overlay h1 {
+  font-size: 5rem;
+  letter-spacing: 6px;
+  font-weight: 400;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1.5s ease forwards;
+  animation-delay: 0.5s;
+}
+
+.overlay p {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-family: Arial, sans-serif;
+  letter-spacing: 1px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1.5s ease forwards;
+  animation-delay: 1.2s;
+}
+
+.icons {
+  margin-top: 30px;
+}
+
+.icons a {
+  color: white;
+  font-size: 1.5rem;
+  margin: 0 15px;
+  transition: opacity 0.3s;
+}
+
+.icons a:hover {
+  opacity: 0.7;
+}
+
+/* Animazioni fade e zoom */
 @keyframes fade {
   0%   { opacity: 1; }
   9%   { opacity: 1; }
@@ -15,7 +83,20 @@
   100% { opacity: 0; }
 }
 
-/* delay immagini uniformi */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoom {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Delay immagini uniformi */
 .slides .slide:nth-child(1)  { animation-delay: 0s; }
 .slides .slide:nth-child(2)  { animation-delay: 4s; }
 .slides .slide:nth-child(3)  { animation-delay: 8s; }
@@ -27,3 +108,37 @@
 .slides .slide:nth-child(9)  { animation-delay: 32s; }
 .slides .slide:nth-child(10) { animation-delay: 36s; }
 .slides .slide:nth-child(11) { animation-delay: 40s; }
+
+/* Responsive per dispositivi mobili */
+@media (max-width: 768px) {
+  .overlay h1 {
+    font-size: 3rem;
+    letter-spacing: 3px;
+  }
+
+  .overlay p {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+
+  .icons a {
+    font-size: 1.2rem;
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .overlay h1 {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+  }
+
+  .overlay p {
+    font-size: 0.9rem;
+  }
+
+  .icons a {
+    font-size: 1rem;
+    margin: 0 8px;
+  }
+}
