@@ -10,8 +10,8 @@
   height: 100vh;
   overflow: hidden;
 
-  /* fallback grigio (lo manteniamo) */
-  background: #777;
+  /* Fallback: niente flash grigio -> mostriamo subito img1 come sfondo */
+  background: #777 url('images/img1.jpg') center / cover no-repeat;
 }
 
 .slides {
@@ -28,13 +28,8 @@
   opacity: 0;
 
   /* 11 immagini * 5s = 55s */
-  animation: fade 55s ease-in-out infinite, zoom 55s linear infinite;
+  animation: fade 55s ease-in-out infinite, zoom 55s ease-in-out infinite;
   will-change: opacity, transform;
-}
-
-/* IMPORTANTISSIMO: evita il "flash" all'avvio */
-.slides .slide:nth-child(1) {
-  opacity: 1;
 }
 
 /* overlay con gradient */
@@ -88,30 +83,31 @@
 }
 
 /*
-  CROSSFADE SENZA BUCHI con step 5s:
-  - Ogni slide resta "attiva" un po' più di 5s (overlap ~0.8s)
-  - Così NON compare mai il grigio tra una e l’altra.
+  Fade “cinema” senza buchi:
+  - ogni slide resta attiva ~7.7s (0→14%)
+  - con step 5s, c’è overlap garantito
+  - niente grigio tra le immagini
 */
 @keyframes fade {
-  0%     { opacity: 1; }
-  2%     { opacity: 1; }
-  13%    { opacity: 1; }
-  16%    { opacity: 0; }
-  100%   { opacity: 0; }
+  0%    { opacity: 0; }
+  4%    { opacity: 1; }   /* fade-in più lento */
+  12%   { opacity: 1; }   /* resta visibile */
+  14%   { opacity: 0; }   /* fade-out morbido */
+  100%  { opacity: 0; }
 }
 
 @keyframes fadeInUp {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* zoom delicato */
+/* Zoom più piacevole (come “prima”), ma elegante */
 @keyframes zoom {
   0%   { transform: scale(1); }
-  50%  { transform: scale(1.025); }
+  50%  { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
 
-/* DELAY POSITIVI: ordine sempre corretto 1→2→...→11 */
+/* Delay POSITIVI: ordine sempre corretto 1→2→...→11 */
 .slides .slide:nth-child(1)  { animation-delay: 0s, 0s; }
 .slides .slide:nth-child(2)  { animation-delay: 5s, 5s; }
 .slides .slide:nth-child(3)  { animation-delay: 10s, 10s; }
