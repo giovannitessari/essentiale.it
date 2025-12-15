@@ -22,7 +22,7 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  animation: fade 44s linear infinite, zoom 44s linear infinite;
+  animation: fade 44s ease-in-out infinite, zoom 44s linear infinite;
 }
 
 /* overlay con gradient */
@@ -77,9 +77,10 @@
 
 /* animazioni fade e fadeInUp */
 @keyframes fade {
-  0%   { opacity: 1; }
-  9%   { opacity: 1; }
-  10%  { opacity: 0; }
+  0%   { opacity: 0; }
+  8%   { opacity: 1; }   /* fade in */
+  25%  { opacity: 1; }   /* visibile */
+  33%  { opacity: 0; }   /* fade out */
   100% { opacity: 0; }
 }
 
@@ -90,7 +91,6 @@
   }
 }
 
-/* animazione zoom variabile */
 @keyframes zoom {
   0%   { transform: scale(1); }
   50%  { transform: scale(1.03); }
