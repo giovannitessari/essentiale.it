@@ -9,6 +9,9 @@
   position: relative;
   height: 100vh;
   overflow: hidden;
+
+  /* fallback: se per QUALSIASI motivo non si vede una slide, rimane grigio */
+  background: #777;
 }
 
 .slides {
@@ -22,6 +25,8 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
+
+  /* durata totale: 11 immagini * 5s = 55s */
   animation: fade 55s ease-in-out infinite, zoom 55s linear infinite;
 }
 
@@ -79,13 +84,18 @@
   opacity: 0.7;
 }
 
-/* FADE LENTO E CINEMATICO */
+/*
+  CROSS-FADE CONTINUO (senza buchi):
+  - la slide è subito visibile (0%)
+  - resta visibile un po’
+  - sfuma via lentamente
+  - nel frattempo la successiva (shiftata di 5s) entra
+*/
 @keyframes fade {
-  0%    { opacity: 0; }
-  2%    { opacity: 1; }   /* fade-in lento */
-  8%    { opacity: 1; }   /* pienamente visibile */
-  10%   { opacity: 0; }   /* fade-out lento */
-  100%  { opacity: 0; }
+  0%   { opacity: 1; }
+  10%  { opacity: 1; }
+  14%  { opacity: 0; }
+  100% { opacity: 0; }
 }
 
 @keyframes fadeInUp {
@@ -102,18 +112,22 @@
   100% { transform: scale(1); }
 }
 
-/* DELAY: 5s PER IMMAGINE */
-.slides .slide:nth-child(1)  { animation-delay: 0s; }
-.slides .slide:nth-child(2)  { animation-delay: 5s; }
-.slides .slide:nth-child(3)  { animation-delay: 10s; }
-.slides .slide:nth-child(4)  { animation-delay: 15s; }
-.slides .slide:nth-child(5)  { animation-delay: 20s; }
-.slides .slide:nth-child(6)  { animation-delay: 25s; }
-.slides .slide:nth-child(7)  { animation-delay: 30s; }
-.slides .slide:nth-child(8)  { animation-delay: 35s; }
-.slides .slide:nth-child(9)  { animation-delay: 40s; }
-.slides .slide:nth-child(10) { animation-delay: 45s; }
-.slides .slide:nth-child(11) { animation-delay: 50s; }
+/*
+  IMPORTANTISSIMO:
+  usiamo DELAY NEGATIVI per evitare che l’ultima immagine venga “tagliata” a fine ciclo
+  (quello è ciò che crea gli scatti/accavallamenti dopo la 11ª).
+*/
+.slides .slide:nth-child(1)  { animation-delay: 0s, 0s; }
+.slides .slide:nth-child(2)  { animation-delay: -5s, -5s; }
+.slides .slide:nth-child(3)  { animation-delay: -10s, -10s; }
+.slides .slide:nth-child(4)  { animation-delay: -15s, -15s; }
+.slides .slide:nth-child(5)  { animation-delay: -20s, -20s; }
+.slides .slide:nth-child(6)  { animation-delay: -25s, -25s; }
+.slides .slide:nth-child(7)  { animation-delay: -30s, -30s; }
+.slides .slide:nth-child(8)  { animation-delay: -35s, -35s; }
+.slides .slide:nth-child(9)  { animation-delay: -40s, -40s; }
+.slides .slide:nth-child(10) { animation-delay: -45s, -45s; }
+.slides .slide:nth-child(11) { animation-delay: -50s, -50s; }
 
 /* Responsive */
 @media (max-width: 768px) {
