@@ -109,3 +109,37 @@
 .slides .slide:nth-child(9)  { animation-delay: 32s; }
 .slides .slide:nth-child(10) { animation-delay: 36s; }
 .slides .slide:nth-child(11) { animation-delay: 40s; }
+
+/* Responsive per dispositivi mobili */
+@media (max-width: 768px) {
+  .overlay h1 {
+    font-size: 3rem;
+    letter-spacing: 3px;
+  }
+
+  .overlay p {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+
+  .icons a {
+    font-size: 1.2rem;
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .overlay h1 {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+  }
+
+  .overlay p {
+    font-size: 0.9rem;
+  }
+
+  .icons a {
+    font-size: 1rem;
+    margin: 0 8px;
+  }
+}
