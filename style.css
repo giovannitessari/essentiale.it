@@ -10,7 +10,7 @@
   height: 100vh;
   overflow: hidden;
 
-  /* fallback grigio (rimane, ma non dovrebbe mai vedersi) */
+  /* fallback grigio (ma non lo vedrai appena carica img1) */
   background: #777;
 }
 
@@ -19,7 +19,7 @@
   inset: 0;
 }
 
-/* Slide base */
+/* Slide: niente animazioni CSS infinite, solo transizioni */
 .slide {
   position: absolute;
   inset: 0;
@@ -29,16 +29,15 @@
   opacity: 0;
   transform: scale(1);
 
-  /* 11 immagini * 5s = 55s */
-  animation: fade 55s linear infinite, zoom 55s ease-in-out infinite;
+  /* crossfade + zoom */
+  transition: opacity 1.4s ease-in-out, transform 6.5s ease-in-out;
   will-change: opacity, transform;
 }
 
-/* ✅ FIX 1: niente grigio all’avvio
-   La prima slide parte già visibile e con zoom già attivo */
-.slides .slide:nth-child(1) {
+/* Slide attiva */
+.slide.is-active {
   opacity: 1;
-  animation-delay: 0s, 0s;
+  transform: scale(1.05); /* zoom piacevole */
 }
 
 /* overlay con gradient */
@@ -91,44 +90,9 @@
   opacity: 0.7;
 }
 
-/* ✅ FIX 2: crossfade vero, morbido e continuo
-   Ogni slide ha una finestra “attiva” più lunga di 5s, così overlap garantito.
-   - fade in: 0 -> 1 (0%..6%)
-   - hold:     1 (6%..20%)
-   - fade out: 1 -> 0 (20%..26%)
-   26% di 55s = 14.3s di “vita” per slide, quindi sempre sovrapposta a quella dopo.
-*/
-@keyframes fade {
-  0%      { opacity: 0; }
-  0.6%    { opacity: 1; }   /* fade-in veloce ma morbido */
-  7.8%    { opacity: 1; }   /* resta visibile */
-  9.09%   { opacity: 0; }   /* fade-out (chiude entro 5s) */
-  100%    { opacity: 0; }
-}
-
 @keyframes fadeInUp {
   to { opacity: 1; transform: translateY(0); }
 }
-
-/* Zoom piacevole (come prima) */
-@keyframes zoom {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-/* Delay POSITIVI: ordine corretto 1→2→...→11 */
-.slides .slide:nth-child(1)  { animation-delay: 0s, 0s; }
-.slides .slide:nth-child(2)  { animation-delay: 5s, 5s; }
-.slides .slide:nth-child(3)  { animation-delay: 10s, 10s; }
-.slides .slide:nth-child(4)  { animation-delay: 15s, 15s; }
-.slides .slide:nth-child(5)  { animation-delay: 20s, 20s; }
-.slides .slide:nth-child(6)  { animation-delay: 25s, 25s; }
-.slides .slide:nth-child(7)  { animation-delay: 30s, 30s; }
-.slides .slide:nth-child(8)  { animation-delay: 35s, 35s; }
-.slides .slide:nth-child(9)  { animation-delay: 40s, 40s; }
-.slides .slide:nth-child(10) { animation-delay: 45s, 45s; }
-.slides .slide:nth-child(11) { animation-delay: 50s, 50s; }
 
 /* Responsive */
 @media (max-width: 768px) {

@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- Preload immagini: priorità alta alla prima per eliminare il flash iniziale -->
+  <!-- Preload (priorità alla prima) -->
   <link rel="preload" as="image" href="images/img1.jpg" fetchpriority="high">
   <link rel="preload" as="image" href="images/img2.jpg">
   <link rel="preload" as="image" href="images/img3.jpg">
@@ -25,10 +25,9 @@
 
 <body>
 
-<!-- Fallback immediato: se le slide non sono ancora pronte, vedi subito img1 -->
-<div class="slider" style="background-image:url('images/img1.jpg'); background-size:cover; background-position:center;">
+<div class="slider" id="slider">
 
-  <div class="slides">
+  <div class="slides" id="slides">
     <div class="slide" style="background-image:url('images/img1.jpg')"></div>
     <div class="slide" style="background-image:url('images/img2.jpg')"></div>
     <div class="slide" style="background-image:url('images/img3.jpg')"></div>
@@ -47,7 +46,6 @@
     <p>Less, but better</p>
 
     <div class="icons">
-      <!-- Email protetta da bot -->
       <a id="email-link"><i class="fa-solid fa-envelope"></i></a>
       <a href="https://instagram.com/_giovannitessari_"><i class="fa-brands fa-instagram"></i></a>
     </div>
@@ -56,12 +54,40 @@
 </div>
 
 <script>
-  // Protezione email: bot non la leggono facilmente
+  // Email protetta
   (function() {
     var user = "giovanni.tessari";
     var domain = "essentiale.it";
     var emailLink = document.getElementById("email-link");
     emailLink.href = "mailto:" + user + "@" + domain;
+  })();
+
+  // Slider stabile (mai sfasato, mai “11 più lunga”)
+  (function() {
+    const slider = document.getElementById('slider');
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const intervalMs = 5000; // 5s per immagine
+
+    let i = 0;
+
+    // elimina grigio appena img1 è pronta: usiamo come fallback visivo
+    const img = new Image();
+    img.src = "images/img1.jpg";
+    img.onload = () => {
+      slider.style.backgroundImage = "url('images/img1.jpg')";
+      slider.style.backgroundSize = "cover";
+      slider.style.backgroundPosition = "center";
+    };
+
+    // stato iniziale
+    slides.forEach(s => s.classList.remove('is-active'));
+    slides[0].classList.add('is-active');
+
+    setInterval(() => {
+      slides[i].classList.remove('is-active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('is-active');
+    }, intervalMs);
   })();
 </script>
 
