@@ -81,19 +81,18 @@
 }
 
 /*
-  KEYFRAMES CALCOLATI PER 11 IMMAGINI:
-  a = 100 / ((fade+visible) * num) = 100 / (5*11) = 1.81818
-  fade-in  = 1s  -> 1.818%
-  visibile = 4s  -> 9.090%
-  fade-out = 1s  -> 10.909%
+  KEYFRAMES CALCOLATI PER 11 IMMAGINI (55s totali):
+  1s fade-in  = 1.818%
+  4s visibile = 9.090%
+  1s fade-out = 10.909%
 
-  Con delay tra immagini di 5s (9.090%), c’è sempre overlap (niente buchi).
+  Nota importante: partiamo già visibili a 0% per evitare “buco” iniziale
+  con i delay positivi.
 */
 @keyframes fade {
-  0%       { opacity: 0; }
-  1.818%   { opacity: 1; }  /* fine fade-in */
-  9.090%   { opacity: 1; }  /* fine visibile (4s) */
-  10.909%  { opacity: 0; }  /* fine fade-out (1s) */
+  0%       { opacity: 1; }
+  9.090%   { opacity: 1; }
+  10.909%  { opacity: 0; }
   100%     { opacity: 0; }
 }
 
@@ -108,18 +107,18 @@
   100% { transform: scale(1); }
 }
 
-/* IMPORTANTISSIMO: delay NEGATIVI (così il loop non “scatta” e non si rompe al giro) */
-.slides .slide:nth-child(1)  { animation-delay:   0s,   0s; }
-.slides .slide:nth-child(2)  { animation-delay:  -5s,  -5s; }
-.slides .slide:nth-child(3)  { animation-delay: -10s, -10s; }
-.slides .slide:nth-child(4)  { animation-delay: -15s, -15s; }
-.slides .slide:nth-child(5)  { animation-delay: -20s, -20s; }
-.slides .slide:nth-child(6)  { animation-delay: -25s, -25s; }
-.slides .slide:nth-child(7)  { animation-delay: -30s, -30s; }
-.slides .slide:nth-child(8)  { animation-delay: -35s, -35s; }
-.slides .slide:nth-child(9)  { animation-delay: -40s, -40s; }
-.slides .slide:nth-child(10) { animation-delay: -45s, -45s; }
-.slides .slide:nth-child(11) { animation-delay: -50s, -50s; }
+/* Delay POSITIVI: niente “salto” 10→11 e loop più stabile cross-browser */
+.slides .slide:nth-child(1)  { animation-delay: 0s, 0s; }
+.slides .slide:nth-child(2)  { animation-delay: 5s, 5s; }
+.slides .slide:nth-child(3)  { animation-delay: 10s, 10s; }
+.slides .slide:nth-child(4)  { animation-delay: 15s, 15s; }
+.slides .slide:nth-child(5)  { animation-delay: 20s, 20s; }
+.slides .slide:nth-child(6)  { animation-delay: 25s, 25s; }
+.slides .slide:nth-child(7)  { animation-delay: 30s, 30s; }
+.slides .slide:nth-child(8)  { animation-delay: 35s, 35s; }
+.slides .slide:nth-child(9)  { animation-delay: 40s, 40s; }
+.slides .slide:nth-child(10) { animation-delay: 45s, 45s; }
+.slides .slide:nth-child(11) { animation-delay: 50s, 50s; }
 
 /* Responsive */
 @media (max-width: 768px) {
